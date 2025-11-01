@@ -1,0 +1,26 @@
+{
+  "name": "TinyMNIST",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Weights": {
+        "$path": "src/pipeline/luau_weights"
+      },
+      "Core": {
+        "$path": "src/Core"
+      }
+    },
+
+    "ServerScriptService": {
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "$path": "src/client"
+        }
+      }
+    }
+  }
+}
