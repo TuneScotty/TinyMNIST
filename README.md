@@ -34,7 +34,11 @@ End-to-end machine learning in Roblox: train a neural network in Python, seriali
 1. `train_mnist.py` → Train 2-layer feedforward network
 2. `export_luau.py` → Serialize weights to `.lua` modules
 3. `Model.luau` → Load weights and run forward pass
-4. `init.client.luau` → Canvas, preprocessing, display
+4. Client modules → Canvas drawing, preprocessing, UI rendering
+   - `Canvas.luau` → 28×28 drawing interface with brush logic
+   - `Preprocessing.luau` → Pixel normalization for inference
+   - `UI.luau` → Prediction grid and controls
+   - `Constants.luau` → Shared configuration
 
 ## The Process
 
@@ -101,10 +105,16 @@ The drawing canvas stores normalized pixel intensities (0-1 range):
 
 ## Project Structure
 
-```ru
+```
 TinyMNIST/
 ├── src/
-│   ├── client/init.client.luau       # UI and canvas
+│   ├── client/
+│   │   ├── init.client.luau           # Entry point
+│   │   └── modules/
+│   │       ├── Canvas.luau            # Drawing interface
+│   │       ├── Preprocessing.luau     # Pixel normalization
+│   │       ├── UI.luau                # Prediction grid
+│   │       └── Constants.luau         # Configuration
 │   ├── Core/
 │   │   ├── Model.luau                 # NN inference
 │   │   ├── MathOps.luau               # Matrix ops
@@ -113,6 +123,10 @@ TinyMNIST/
 │       ├── train_mnist.py             # Training script
 │       ├── export_luau.py             # Weight export
 │       ├── luau_weights/              # Serialized weights
+│       │   ├── W1.lua, W2.lua         # Weight matrices
+│       │   └── B1.lua, B2.lua         # Bias vectors
+│       ├── weight/
+│       │   └── mnist256.keras         # Trained model
 │       └── utils/serialize.py         # Python→Luau converter
 ├── default.project.json
 └── README.md
